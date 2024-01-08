@@ -29,7 +29,7 @@ export class UserController {
 
   @Post('/login')
   async loginUser(@Res() res, @Body() wallet: string) {
-    const user = await this.userService.findOneUserLogin(wallet);
+    const user = await this.userService.findOneUserLogin({ wallet });
     if (!user) throw new NotFoundException('User Does Not Exists');
     return res.status(HttpStatus.OK).json({
       message: 'User Find',

@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const user_create_dto_1 = require("./dto/user-create.dto");
 const user_service_1 = require("./user.service");
@@ -28,7 +29,7 @@ let UserController = class UserController {
         });
     }
     async loginUser(res, wallet) {
-        const user = await this.userService.findOneUserLogin(wallet);
+        const user = await this.userService.findOneUserLogin({ wallet });
         if (!user)
             throw new common_1.NotFoundException('User Does Not Exists');
         return res.status(common_1.HttpStatus.OK).json({
@@ -72,6 +73,7 @@ let UserController = class UserController {
 exports.UserController = UserController;
 __decorate([
     (0, common_1.Post)('/register'),
+    openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -80,6 +82,7 @@ __decorate([
 ], UserController.prototype, "registerUser", null);
 __decorate([
     (0, common_1.Post)('/login'),
+    openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -88,6 +91,7 @@ __decorate([
 ], UserController.prototype, "loginUser", null);
 __decorate([
     (0, common_1.Get)('/'),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -95,6 +99,7 @@ __decorate([
 ], UserController.prototype, "getUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -103,6 +108,7 @@ __decorate([
 ], UserController.prototype, "getUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -111,6 +117,7 @@ __decorate([
 ], UserController.prototype, "deleteUser", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),

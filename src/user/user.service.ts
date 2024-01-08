@@ -18,7 +18,7 @@ export class UserService {
     return await this.userModel.findById(userID);
   }
 
-  async findOneUserLogin(wallet: string): Promise<User> {
+  async findOneUserLogin(wallet): Promise<User> {
     return await this.userModel.findOne(wallet);
   }
 
