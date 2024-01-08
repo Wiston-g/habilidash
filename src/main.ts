@@ -12,6 +12,7 @@ async function bootstrap() {
     .setDescription('The hailities of commiunity LAGENTE')
     .setVersion('1.0')
     .addTag('habilities')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

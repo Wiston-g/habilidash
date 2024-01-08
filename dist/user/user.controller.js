@@ -17,6 +17,7 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const user_create_dto_1 = require("./dto/user-create.dto");
 const user_service_1 = require("./user.service");
+const swagger_1 = require("@nestjs/swagger");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -126,6 +127,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "UpdateUser", null);
 exports.UserController = UserController = __decorate([
+    (0, swagger_1.ApiTags)('user'),
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
