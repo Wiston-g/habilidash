@@ -3,5 +3,5 @@ export declare class CreateUserDTO {
     readonly wallet: string;
     readonly linkURL: string;
     readonly habilitiesArray: string[];
-    readonly creaedAt: Date;
+    readonly creaedAt?: Date;
 }

@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const UserSchema = new Schema({
+export const UserUpdateSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -10,7 +10,6 @@ export const UserSchema = new Schema({
   wallet: {
     type: String,
     required: true,
-    unique: true,
   },
   linkURL: {
     type: String,

@@ -29,4 +29,4 @@ exports.UserSchema = new mongoose_1.Schema({
         default: Date.now,
     },
 });
-//# sourceMappingURL=user.schemas.js.map
+//# sourceMappingURL=user-create.schemas.js.map

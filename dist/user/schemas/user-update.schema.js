@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = void 0;
+exports.UserUpdateSchema = void 0;
 const mongoose_1 = require("mongoose");
-exports.UserSchema = new mongoose_1.Schema({
+exports.UserUpdateSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true,
@@ -12,7 +12,6 @@ exports.UserSchema = new mongoose_1.Schema({
     wallet: {
         type: String,
         required: true,
-        unique: true,
     },
     linkURL: {
         type: String,
@@ -29,4 +28,4 @@ exports.UserSchema = new mongoose_1.Schema({
         default: Date.now,
     },
 });
-//# sourceMappingURL=user.schemas.js.map
+//# sourceMappingURL=user-update.schema.js.map
