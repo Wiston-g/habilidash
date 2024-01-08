@@ -24,7 +24,10 @@ let UserService = class UserService {
         return await this.userModel.find();
     }
     async findOneUser(userID) {
-        return this.userModel.findById(userID);
+        return await this.userModel.findById(userID);
+    }
+    async findOneUserLogin(wallet) {
+        return await this.userModel.findOne(wallet);
     }
     async createUser(createUserDTO) {
         const newUser = new this.userModel(createUserDTO);
@@ -34,8 +37,8 @@ let UserService = class UserService {
     async deleteUser(userID) {
         return await this.userModel.findByIdAndDelete(userID);
     }
-    async updateUser(userID, updateUserDTO) {
-        return await this.userModel.findByIdAndUpdate(userID, updateUserDTO, {
+    async updateUser(userID, createUserDTO) {
+        return await this.userModel.findByIdAndUpdate(userID, createUserDTO, {
             new: true,
         });
     }

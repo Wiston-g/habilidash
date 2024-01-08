@@ -25,13 +25,13 @@
 import { Model } from 'mongoose';
 import { User } from './interfaces/user.interface';
 import { CreateUserDTO } from './dto/user-create.dto';
-import { UpdateUserDTO } from './dto/user-update.dto';
 export declare class UserService {
     readonly userModel: Model<User>;
     constructor(userModel: Model<User>);
     findAllUsers(): Promise<User[]>;
     findOneUser(userID: string): Promise<User>;
+    findOneUserLogin(wallet: string): Promise<User>;
     createUser(createUserDTO: CreateUserDTO): Promise<User>;
     deleteUser(userID: string): Promise<any>;
-    updateUser(userID: string, updateUserDTO: UpdateUserDTO): Promise<User>;
+    updateUser(userID: string, createUserDTO: CreateUserDTO): Promise<User>;
 }

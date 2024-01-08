@@ -8,7 +8,8 @@ export class UpdateUserDTO {
 
   @IsString()
   @IsNotEmpty()
-  readonly wallet: string;
+  @IsOptional()
+  readonly wallet?: string;
 
   @IsString()
   @IsNotEmpty()

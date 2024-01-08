@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { User } from './interfaces/user.interface';
 import { CreateUserDTO } from './dto/user-create.dto';
-import { UpdateUserDTO } from './dto/user-update.dto';
+//import { UpdateUserDTO } from './dto/user-update.dto';
 
 @Injectable()
 export class UserService {
@@ -15,7 +15,11 @@ export class UserService {
   }
 
   async findOneUser(userID: string): Promise<User> {
-    return this.userModel.findById(userID);
+    return await this.userModel.findById(userID);
+  }
+
+  async findOneUserLogin(wallet: string): Promise<User> {
+    return await this.userModel.findOne(wallet);
   }
 
   async createUser(createUserDTO: CreateUserDTO): Promise<User> {
@@ -30,9 +34,9 @@ export class UserService {
 
   async updateUser(
     userID: string,
-    updateUserDTO: UpdateUserDTO,
+    createUserDTO: CreateUserDTO,
   ): Promise<User> {
-    return await this.userModel.findByIdAndUpdate(userID, updateUserDTO, {
+    return await this.userModel.findByIdAndUpdate(userID, createUserDTO, {
       new: true,
     });
   }

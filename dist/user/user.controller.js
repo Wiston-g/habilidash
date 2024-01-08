@@ -15,16 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_create_dto_1 = require("./dto/user-create.dto");
-const user_update_dto_1 = require("./dto/user-update.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    async createPost(res, createUserDTO) {
+    async registerUser(res, createUserDTO) {
         const user = await this.userService.createUser(createUserDTO);
         return res.status(common_1.HttpStatus.OK).json({
             message: 'User Successfully Created',
+            user: user,
+        });
+    }
+    async loginUser(res, wallet) {
+        const user = await this.userService.findOneUserLogin(wallet);
+        if (!user)
+            throw new common_1.NotFoundException('User Does Not Exists');
+        return res.status(common_1.HttpStatus.OK).json({
+            message: 'User Find',
             user: user,
         });
     }
@@ -53,9 +61,8 @@ let UserController = class UserController {
             user: user,
         });
     }
-    async UpdateUser(res, id, updateUserDTO) {
-        console.log(updateUserDTO);
-        const user = await this.userService.updateUser(id, updateUserDTO);
+    async UpdateUser(id, createUserDTO, res) {
+        const user = await this.userService.updateUser(id, createUserDTO);
         return res.status(common_1.HttpStatus.OK).json({
             message: 'User Successfully Updated',
             user: user,
@@ -64,13 +71,21 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
-    (0, common_1.Post)('/create'),
+    (0, common_1.Post)('/register'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, user_create_dto_1.CreateUserDTO]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "createPost", null);
+], UserController.prototype, "registerUser", null);
+__decorate([
+    (0, common_1.Post)('/login'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "loginUser", null);
 __decorate([
     (0, common_1.Get)('/'),
     __param(0, (0, common_1.Res)()),
@@ -96,11 +111,11 @@ __decorate([
 ], UserController.prototype, "deleteUser", null);
 __decorate([
     (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Param)('id')),
-    __param(2, (0, common_1.Body)()),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, user_update_dto_1.UpdateUserDTO]),
+    __metadata("design:paramtypes", [String, user_create_dto_1.CreateUserDTO, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "UpdateUser", null);
 exports.UserController = UserController = __decorate([
