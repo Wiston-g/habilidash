@@ -40,18 +40,35 @@ let UserController = class UserController {
     }
     async getUsers(res) {
         const users = await this.userService.findAllUsers();
+        let dataObject;
+        const userData = [];
+        users.forEach((user) => {
+            dataObject = {
+                id: user._id,
+                name: user.name,
+                linkURL: user.linkURL,
+                habilities: user.habilitiesArray,
+            };
+            userData.push(dataObject);
+        });
         return res.status(common_1.HttpStatus.OK).json({
             message: 'User List',
-            user: users,
+            user: userData,
         });
     }
     async getUser(res, id) {
         const user = await this.userService.findOneUser(id);
+        const dataObject = {
+            id: user._id,
+            name: user.name,
+            linkURL: user.linkURL,
+            habilities: user.habilitiesArray,
+        };
         if (!user)
             throw new common_1.NotFoundException('User Does Not Exists');
         return res.status(common_1.HttpStatus.OK).json({
             message: 'User Find',
-            user: user,
+            user: dataObject,
         });
     }
     async deleteUser(res, id) {

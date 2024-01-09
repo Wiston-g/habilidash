@@ -36,6 +36,8 @@ export class UserService {
     userID: string,
     createUserDTO: CreateUserDTO,
   ): Promise<User> {
+    console.log(createUserDTO);
+    //this.userModel.findById(userID);
     return await this.userModel.findByIdAndUpdate(userID, createUserDTO, {
       new: true,
     });

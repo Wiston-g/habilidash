@@ -42,9 +42,25 @@ export class UserController {
   @Get('/')
   async getUsers(@Res() res) {
     const users = await this.userService.findAllUsers();
+    let dataObject: {
+      id: string;
+      name: string;
+      linkURL: string;
+      habilities: Array<string>;
+    };
+    const userData: Array<object> = [];
+    users.forEach((user) => {
+      dataObject = {
+        id: user._id,
+        name: user.name,
+        linkURL: user.linkURL,
+        habilities: user.habilitiesArray,
+      };
+      userData.push(dataObject);
+    });
     return res.status(HttpStatus.OK).json({
       message: 'User List',
-      user: users,
+      user: userData,
     });
   }
 
@@ -52,10 +68,22 @@ export class UserController {
   async getUser(@Res() res, @Param('id') id: string) {
     const user = await this.userService.findOneUser(id);
 
+    const dataObject: {
+      id: string;
+      name: string;
+      linkURL: string;
+      habilities: Array<string>;
+    } = {
+      id: user._id,
+      name: user.name,
+      linkURL: user.linkURL,
+      habilities: user.habilitiesArray,
+    };
+
     if (!user) throw new NotFoundException('User Does Not Exists');
     return res.status(HttpStatus.OK).json({
       message: 'User Find',
-      user: user,
+      user: dataObject,
     });
   }
 
