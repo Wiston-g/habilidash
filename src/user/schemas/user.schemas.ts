@@ -11,6 +11,8 @@ export const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    min: 42,
+    max: 42,
   },
   linkURL: {
     type: String,

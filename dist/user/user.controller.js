@@ -24,6 +24,7 @@ let UserController = class UserController {
     }
     async registerUser(res, createUserDTO) {
         const user = await this.userService.createUser(createUserDTO);
+        console.log(user);
         return res.status(common_1.HttpStatus.OK).json({
             message: 'User Successfully Created',
             user: user,

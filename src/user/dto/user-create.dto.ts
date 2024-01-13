@@ -1,12 +1,18 @@
-import { IsString, IsNotEmpty, IsArray, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsArray,
+  IsOptional,
+  IsEthereumAddress,
+} from 'class-validator';
 
 export class CreateUserDTO {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsEthereumAddress()
   readonly wallet: string;
 
   @IsString()

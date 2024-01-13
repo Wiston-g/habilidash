@@ -13,6 +13,8 @@ exports.UserSchema = new mongoose_1.Schema({
         type: String,
         required: true,
         unique: true,
+        min: 42,
+        max: 42,
     },
     linkURL: {
         type: String,
