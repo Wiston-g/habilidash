@@ -9,7 +9,6 @@ import { HabilityModule } from './hability/hability.module';
 @Module({
   imports: [
     UserModule,
-    HabilityModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
