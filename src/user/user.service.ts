@@ -18,10 +18,6 @@ export class UserService {
     return await this.userModel.findById(userID);
   }
 
-  async findOneUserLogin(wallet): Promise<User> {
-    return await this.userModel.findOne(wallet);
-  }
-
   async createUser(createUserDTO: CreateUserDTO): Promise<User> {
     const newUser = new this.userModel(createUserDTO);
     await newUser.save();

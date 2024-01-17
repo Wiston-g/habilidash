@@ -34,8 +34,9 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "password", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsUrl)(undefined, { message: 'Company URL is not valid.' }),
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "linkURL", void 0);
 __decorate([

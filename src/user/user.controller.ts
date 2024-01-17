@@ -33,17 +33,6 @@ export class UserController {
     });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  async loginUser(@Res() res, @Body() wallet: string) {
-    const user = await this.userService.findOneUserLogin({ wallet });
-    if (!user) throw new NotFoundException('User Does Not Exists');
-    return res.status(HttpStatus.OK).json({
-      message: 'User Find',
-      user: user,
-    });
-  }
-
   @Get('/')
   async getUsers(@Res() res) {
     const users = await this.userService.findAllUsers();

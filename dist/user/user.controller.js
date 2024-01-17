@@ -30,15 +30,6 @@ let UserController = class UserController {
             user: user,
         });
     }
-    async loginUser(res, wallet) {
-        const user = await this.userService.findOneUserLogin({ wallet });
-        if (!user)
-            throw new common_1.NotFoundException('User Does Not Exists');
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User Find',
-            user: user,
-        });
-    }
     async getUsers(res) {
         const users = await this.userService.findAllUsers();
         let dataObject;
@@ -91,6 +82,7 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
@@ -100,16 +92,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "registerUser", null);
 __decorate([
-    (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: Object }),
-    __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "loginUser", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('/'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
@@ -127,6 +109,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
@@ -136,6 +119,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "deleteUser", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Put)(':id'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),

@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsEthereumAddress,
   IsStrongPassword,
+  IsUrl,
 } from 'class-validator';
 
 export class CreateUserDTO {
@@ -20,8 +21,9 @@ export class CreateUserDTO {
   @IsNotEmpty()
   readonly password: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
+  @IsUrl(undefined, { message: 'Company URL is not valid.' })
   readonly linkURL: string;
 
   @IsNotEmpty()
