@@ -11,76 +11,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const register_auth_dto_1 = require("./dto/register-auth.dto");
 const login_auth_dto_1 = require("./dto/login-auth.dto");
+const register_auth_dto_1 = require("./dto/register-auth.dto");
 const swagger_1 = require("@nestjs/swagger");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    create(createAuthDto) {
-        return this.authService.create(createAuthDto);
+    RegisterUser(registerAuthDto) {
+        return this.authService.register(registerAuthDto);
     }
-    findAll() {
-        return this.authService.findAll();
-    }
-    findOne(id) {
-        return this.authService.findOne(+id);
-    }
-    update(id, updateAuthDto) {
-        return this.authService.update(+id, updateAuthDto);
-    }
-    remove(id) {
-        return this.authService.remove(+id);
+    loginUser(loginAuthDto) {
+        return this.authService.login(loginAuthDto);
     }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: String }),
+    (0, common_1.Post)('register'),
+    openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof register_auth_dto_1.CreateAuthDto !== "undefined" && register_auth_dto_1.CreateAuthDto) === "function" ? _a : Object]),
+    __metadata("design:paramtypes", [register_auth_dto_1.RegisterAuthDto]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "create", null);
+], AuthController.prototype, "RegisterUser", null);
 __decorate([
-    (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: String }),
+    (0, common_1.Post)('login'),
+    openapi.ApiResponse({ status: 201, type: Object }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [login_auth_dto_1.LoginAuthDto]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, typeof (_b = typeof login_auth_dto_1.UpdateAuthDto !== "undefined" && login_auth_dto_1.UpdateAuthDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "update", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "remove", null);
+], AuthController.prototype, "loginUser", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
     (0, common_1.Controller)('auth'),

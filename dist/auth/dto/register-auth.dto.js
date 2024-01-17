@@ -16,13 +16,12 @@ const login_auth_dto_1 = require("./login-auth.dto");
 const class_validator_1 = require("class-validator");
 class RegisterAuthDto extends (0, swagger_1.PartialType)(login_auth_dto_1.LoginAuthDto) {
     static _OPENAPI_METADATA_FACTORY() {
-        return { wallet: { required: true, type: () => String } };
+        return { name: { required: true, type: () => String } };
     }
 }
 exports.RegisterAuthDto = RegisterAuthDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsEthereumAddress)(),
     __metadata("design:type", String)
-], RegisterAuthDto.prototype, "wallet", void 0);
+], RegisterAuthDto.prototype, "name", void 0);
 //# sourceMappingURL=register-auth.dto.js.map

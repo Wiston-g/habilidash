@@ -12,6 +12,9 @@ const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_schemas_1 = require("../user/schemas/user.schemas");
+const jwt_1 = require("@nestjs/jwt");
+const jwt_Strategy_1 = require("./jwt.Strategy");
+const config_1 = require("@nestjs/config");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -24,9 +27,21 @@ exports.AuthModule = AuthModule = __decorate([
                     schema: user_schemas_1.UserSchema,
                 },
             ]),
+            jwt_1.JwtModule.registerAsync({
+                useFactory: async () => {
+                    return {
+                        global: true,
+                        secret: process.env.SECRET_KEY,
+                        signOptions: { expiresIn: '20h' },
+                    };
+                },
+            }),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService],
+        providers: [auth_service_1.AuthService, jwt_Strategy_1.JwtStrategy],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

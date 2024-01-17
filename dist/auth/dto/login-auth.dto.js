@@ -14,18 +14,18 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class LoginAuthDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, wallet: { required: true, type: () => String } };
+        return { wallet: { required: true, type: () => String }, password: { required: true, type: () => String } };
     }
 }
 exports.LoginAuthDto = LoginAuthDto;
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LoginAuthDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEthereumAddress)(),
     __metadata("design:type", String)
 ], LoginAuthDto.prototype, "wallet", void 0);
+__decorate([
+    (0, class_validator_1.IsStrongPassword)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], LoginAuthDto.prototype, "password", void 0);
 //# sourceMappingURL=login-auth.dto.js.map

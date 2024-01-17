@@ -18,6 +18,7 @@ const common_1 = require("@nestjs/common");
 const user_create_dto_1 = require("./dto/user-create.dto");
 const user_service_1 = require("./user.service");
 const swagger_1 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -90,7 +91,7 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
-    (0, common_1.Post)('/register'),
+    (0, common_1.Post)(),
     openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
@@ -99,7 +100,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "registerUser", null);
 __decorate([
-    (0, common_1.Post)('/login'),
+    (0, common_1.Post)(),
     openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
@@ -108,6 +109,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "loginUser", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('/'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
@@ -144,6 +146,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "UpdateUser", null);
 exports.UserController = UserController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('user'),
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

@@ -22,12 +22,17 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Document } from 'mongoose';
-export interface User extends Document {
-    readonly name: string;
-    readonly wallet: string;
-    readonly password: string;
-    readonly linkURL: string;
-    readonly habilitiesArray: string[];
-    readonly creaedAt: Date;
+import { Strategy } from 'passport-jwt';
+import { Model } from 'mongoose';
+import { User } from 'src/user/interfaces/user.interface';
+declare const JwtStrategy_base: new (...args: any[]) => Strategy;
+export declare class JwtStrategy extends JwtStrategy_base {
+    readonly userModel: Model<User>;
+    constructor(userModel: Model<User>);
+    validate(payload: {
+        id: string;
+    }): Promise<import("mongoose").Document<unknown, {}, User> & User & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
 }
+export {};

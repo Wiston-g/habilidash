@@ -4,6 +4,7 @@ import {
   IsArray,
   IsOptional,
   IsEthereumAddress,
+  IsStrongPassword,
 } from 'class-validator';
 
 export class CreateUserDTO {
@@ -14,6 +15,10 @@ export class CreateUserDTO {
   @IsNotEmpty()
   @IsEthereumAddress()
   readonly wallet: string;
+
+  @IsStrongPassword()
+  @IsNotEmpty()
+  readonly password: string;
 
   @IsString()
   @IsNotEmpty()

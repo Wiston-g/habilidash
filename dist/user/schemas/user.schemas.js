@@ -16,6 +16,12 @@ exports.UserSchema = new mongoose_1.Schema({
         min: 42,
         max: 42,
     },
+    password: {
+        type: String,
+        required: true,
+        min: 8,
+        max: 55,
+    },
     linkURL: {
         type: String,
         required: true,

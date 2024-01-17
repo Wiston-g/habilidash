@@ -9,18 +9,22 @@ import {
   Body,
   Param,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDTO } from './dto/user-create.dto';
 //import { UpdateUserDTO } from './dto/user-update.dto';
 import { UserService } from './user.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@ApiBearerAuth()
 @ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post('/register')
+  @UseGuards(JwtAuthGuard)
+  @Post()
   async registerUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
     const user = await this.userService.createUser(createUserDTO);
     return res.status(HttpStatus.OK).json({
@@ -29,7 +33,8 @@ export class UserController {
     });
   }
 
-  @Post('/login')
+  @UseGuards(JwtAuthGuard)
+  @Post()
   async loginUser(@Res() res, @Body() wallet: string) {
     const user = await this.userService.findOneUserLogin({ wallet });
     if (!user) throw new NotFoundException('User Does Not Exists');
@@ -87,6 +92,7 @@ export class UserController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteUser(@Res() res, @Param('id') id: string) {
     const user = await this.userService.deleteUser(id);
@@ -99,6 +105,7 @@ export class UserController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async UpdateUser(
     @Param('id') id: string,
