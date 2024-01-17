@@ -4,7 +4,6 @@ export declare class UserController {
     private userService;
     constructor(userService: UserService);
     registerUser(res: any, createUserDTO: CreateUserDTO): Promise<any>;
-    loginUser(res: any, wallet: string): Promise<any>;
     getUsers(res: any): Promise<any>;
     getUser(res: any, id: string): Promise<any>;
     deleteUser(res: any, id: string): Promise<any>;

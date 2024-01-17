@@ -14,6 +14,7 @@ const user_module_1 = require("./user/user.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const config_1 = require("@nestjs/config");
 const hability_module_1 = require("./hability/hability.module");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -22,6 +23,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             user_module_1.UserModule,
             hability_module_1.HabilityModule,
+            auth_module_1.AuthModule,
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),

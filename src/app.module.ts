@@ -5,11 +5,13 @@ import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HabilityModule } from './hability/hability.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     UserModule,
     HabilityModule,
+    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

@@ -26,9 +26,6 @@ let UserService = class UserService {
     async findOneUser(userID) {
         return await this.userModel.findById(userID);
     }
-    async findOneUserLogin(wallet) {
-        return await this.userModel.findOne(wallet);
-    }
     async createUser(createUserDTO) {
         const newUser = new this.userModel(createUserDTO);
         await newUser.save();

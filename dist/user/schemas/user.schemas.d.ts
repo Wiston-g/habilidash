@@ -26,18 +26,21 @@ import { Schema } from 'mongoose';
 export declare const UserSchema: Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
     name: string;
     wallet: string;
+    password: string;
     linkURL: string;
     habilitiesArray: any[];
     creaedAt: Date;
 }, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
     name: string;
     wallet: string;
+    password: string;
     linkURL: string;
     habilitiesArray: any[];
     creaedAt: Date;
 }>> & import("mongoose").FlatRecord<{
     name: string;
     wallet: string;
+    password: string;
     linkURL: string;
     habilitiesArray: any[];
     creaedAt: Date;

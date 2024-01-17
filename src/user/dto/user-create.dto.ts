@@ -4,6 +4,8 @@ import {
   IsArray,
   IsOptional,
   IsEthereumAddress,
+  IsStrongPassword,
+  IsUrl,
 } from 'class-validator';
 
 export class CreateUserDTO {
@@ -15,8 +17,13 @@ export class CreateUserDTO {
   @IsEthereumAddress()
   readonly wallet: string;
 
-  @IsString()
+  @IsStrongPassword()
   @IsNotEmpty()
+  readonly password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsUrl(undefined, { message: 'Company URL is not valid.' })
   readonly linkURL: string;
 
   @IsNotEmpty()

@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateUserDTO {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, wallet: { required: true, type: () => String }, linkURL: { required: true, type: () => String }, habilitiesArray: { required: true, type: () => [String] }, creaedAt: { required: false, type: () => Date } };
+        return { name: { required: true, type: () => String }, wallet: { required: true, type: () => String }, password: { required: true, type: () => String }, linkURL: { required: true, type: () => String }, habilitiesArray: { required: true, type: () => [String] }, creaedAt: { required: false, type: () => Date } };
     }
 }
 exports.CreateUserDTO = CreateUserDTO;
@@ -29,8 +29,14 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "wallet", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsStrongPassword)(),
     (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateUserDTO.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsUrl)(undefined, { message: 'Company URL is not valid.' }),
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "linkURL", void 0);
 __decorate([

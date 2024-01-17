@@ -18,24 +18,15 @@ const common_1 = require("@nestjs/common");
 const user_create_dto_1 = require("./dto/user-create.dto");
 const user_service_1 = require("./user.service");
 const swagger_1 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
     async registerUser(res, createUserDTO) {
         const user = await this.userService.createUser(createUserDTO);
-        console.log(user);
         return res.status(common_1.HttpStatus.OK).json({
             message: 'User Successfully Created',
-            user: user,
-        });
-    }
-    async loginUser(res, wallet) {
-        const user = await this.userService.findOneUserLogin({ wallet });
-        if (!user)
-            throw new common_1.NotFoundException('User Does Not Exists');
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User Find',
             user: user,
         });
     }
@@ -91,7 +82,8 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
-    (0, common_1.Post)('/register'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)(),
     openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
@@ -99,15 +91,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, user_create_dto_1.CreateUserDTO]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "registerUser", null);
-__decorate([
-    (0, common_1.Post)('/login'),
-    openapi.ApiResponse({ status: 201, type: Object }),
-    __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "loginUser", null);
 __decorate([
     (0, common_1.Get)('/'),
     openapi.ApiResponse({ status: 200, type: Object }),
@@ -126,6 +109,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Res)()),
@@ -135,6 +119,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "deleteUser", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Put)(':id'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
@@ -145,6 +130,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "UpdateUser", null);
 exports.UserController = UserController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('user'),
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])
