@@ -16,7 +16,7 @@ const create_hability_dto_1 = require("./create-hability.dto");
 const class_validator_1 = require("class-validator");
 class UpdateHabilityDto extends (0, swagger_1.PartialType)(create_hability_dto_1.CreateHabilityDto) {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, creaedAt: { required: false, type: () => Date } };
+        return { name: { required: true, type: () => String }, usersArray: { required: false, type: () => [String] }, creaedAt: { required: false, type: () => Date } };
     }
 }
 exports.UpdateHabilityDto = UpdateHabilityDto;
@@ -25,6 +25,12 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateHabilityDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdateHabilityDto.prototype, "usersArray", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Date)

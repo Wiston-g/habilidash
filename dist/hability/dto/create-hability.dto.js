@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateHabilityDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, creaedAt: { required: false, type: () => Date } };
+        return { name: { required: true, type: () => String }, usersArray: { required: true, type: () => [String] }, creaedAt: { required: false, type: () => Date } };
     }
 }
 exports.CreateHabilityDto = CreateHabilityDto;
@@ -23,6 +23,11 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateHabilityDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Array)
+], CreateHabilityDto.prototype, "usersArray", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Date)

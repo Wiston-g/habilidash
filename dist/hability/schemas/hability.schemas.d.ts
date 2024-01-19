@@ -26,12 +26,15 @@ import { Schema } from 'mongoose';
 export declare const HabilitySchema: Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
     name: string;
     creaedAt: Date;
+    usersArray: any[];
 }, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
     name: string;
     creaedAt: Date;
+    usersArray: any[];
 }>> & import("mongoose").FlatRecord<{
     name: string;
     creaedAt: Date;
+    usersArray: any[];
 }> & {
     _id: import("mongoose").Types.ObjectId;
 }>;

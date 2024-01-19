@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const user_create_dto_1 = require("./dto/user-create.dto");
+const user_update_dto_1 = require("./dto/user-update.dto");
 const user_service_1 = require("./user.service");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
@@ -24,66 +25,101 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async registerUser(res, createUserDTO) {
-        const user = await this.userService.createUser(createUserDTO);
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User Successfully Created',
-            user: user,
-        });
+        try {
+            const user = await this.userService.createUser(createUserDTO);
+            return res.status(common_1.HttpStatus.OK).json({
+                message: 'User Successfully Created',
+                user: user,
+            });
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error,
+            });
+        }
     }
     async getUsers(res) {
-        const users = await this.userService.findAllUsers();
-        let dataObject;
-        const userData = [];
-        users.forEach((user) => {
-            dataObject = {
+        try {
+            const users = await this.userService.findAllUsers();
+            let dataObject;
+            const userData = [];
+            users.forEach((user) => {
+                dataObject = {
+                    id: user._id,
+                    name: user.name,
+                    linkURL: user.linkURL,
+                    habilities: user.habilitiesArray,
+                };
+                userData.push(dataObject);
+            });
+            return res.status(common_1.HttpStatus.OK).json({
+                message: 'User List',
+                user: userData,
+            });
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error,
+            });
+        }
+    }
+    async getUser(res, id) {
+        try {
+            const user = await this.userService.findOneUser(id);
+            const dataObject = {
                 id: user._id,
                 name: user.name,
                 linkURL: user.linkURL,
                 habilities: user.habilitiesArray,
             };
-            userData.push(dataObject);
-        });
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User List',
-            user: userData,
-        });
-    }
-    async getUser(res, id) {
-        const user = await this.userService.findOneUser(id);
-        const dataObject = {
-            id: user._id,
-            name: user.name,
-            linkURL: user.linkURL,
-            habilities: user.habilitiesArray,
-        };
-        if (!user)
-            throw new common_1.NotFoundException('User Does Not Exists');
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User Find',
-            user: dataObject,
-        });
+            if (!user)
+                throw new common_1.NotFoundException('User Does Not Exists');
+            return res.status(common_1.HttpStatus.OK).json({
+                message: 'User Find',
+                user: dataObject,
+            });
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error,
+            });
+        }
     }
     async deleteUser(res, id) {
-        const user = await this.userService.deleteUser(id);
-        if (!user)
-            throw new common_1.NotFoundException('User Does Not Exists');
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User Deleted Success',
-            user: user,
-        });
+        try {
+            const user = await this.userService.deleteUser(id);
+            if (!user)
+                throw new common_1.NotFoundException('User Does Not Exists');
+            return res.status(common_1.HttpStatus.OK).json({
+                message: 'User Deleted Success',
+                user: user,
+            });
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error,
+            });
+        }
     }
-    async UpdateUser(id, createUserDTO, res) {
-        const user = await this.userService.updateUser(id, createUserDTO);
-        return res.status(common_1.HttpStatus.OK).json({
-            message: 'User Successfully Updated',
-            user: user,
-        });
+    async UpdateUser(id, updateUserDTO, res) {
+        try {
+            const user = await this.userService.updateUser(id, updateUserDTO);
+            return res.status(common_1.HttpStatus.OK).json({
+                message: 'User Successfully Updated',
+                user: user,
+            });
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error,
+            });
+        }
     }
 };
 exports.UserController = UserController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)(),
+    (0, common_1.Post)(''),
     openapi.ApiResponse({ status: 201, type: Object }),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
@@ -126,7 +162,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, user_create_dto_1.CreateUserDTO, Object]),
+    __metadata("design:paramtypes", [String, user_update_dto_1.UpdateUserDTO, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "UpdateUser", null);
 exports.UserController = UserController = __decorate([

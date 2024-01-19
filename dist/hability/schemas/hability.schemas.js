@@ -9,6 +9,10 @@ exports.HabilitySchema = new mongoose_1.Schema({
         min: 2,
         max: 55,
     },
+    usersArray: {
+        type: Array,
+        required: true,
+    },
     creaedAt: {
         type: Date,
         default: Date.now,

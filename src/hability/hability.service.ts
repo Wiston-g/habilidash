@@ -12,6 +12,13 @@ export class HabilityService {
     @InjectModel('Hability') readonly habilityModel: Model<Hability>,
   ) {}
 
+  async getHabilitiesNamesByIds(habilityId: string[]): Promise<string[]> {
+    const habilities = await this.habilityModel.find({
+      _id: { $in: habilityId },
+    });
+    return habilities.map((habilidad) => habilidad.name);
+  }
+
   async create(createHabilityDto: CreateHabilityDto) {
     const newHability = new this.habilityModel(createHabilityDto);
     await newHability.save();

@@ -20,6 +20,12 @@ let HabilityService = class HabilityService {
     constructor(habilityModel) {
         this.habilityModel = habilityModel;
     }
+    async getHabilitiesNamesByIds(habilityId) {
+        const habilities = await this.habilityModel.find({
+            _id: { $in: habilityId },
+        });
+        return habilities.map((habilidad) => habilidad.name);
+    }
     async create(createHabilityDto) {
         const newHability = new this.habilityModel(createHabilityDto);
         await newHability.save();

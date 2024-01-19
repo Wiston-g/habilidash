@@ -7,6 +7,10 @@ export const HabilitySchema = new Schema({
     min: 2,
     max: 55,
   },
+  usersArray: {
+    type: Array,
+    required: true,
+  },
   creaedAt: {
     type: Date,
     default: Date.now,

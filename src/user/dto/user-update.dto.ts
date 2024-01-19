@@ -9,11 +9,6 @@ export class UpdateUserDTO {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  readonly wallet?: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
   readonly linkURL?: string;
 
   @IsNotEmpty()

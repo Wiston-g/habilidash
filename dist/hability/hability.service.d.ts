@@ -29,6 +29,7 @@ import { Hability } from './interfaces/hability.interface';
 export declare class HabilityService {
     readonly habilityModel: Model<Hability>;
     constructor(habilityModel: Model<Hability>);
+    getHabilitiesNamesByIds(habilityId: string[]): Promise<string[]>;
     create(createHabilityDto: CreateHabilityDto): Promise<import("mongoose").Document<unknown, {}, Hability> & Hability & {
         _id: import("mongoose").Types.ObjectId;
     }>;
